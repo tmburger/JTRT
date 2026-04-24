@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { createRoot } from "react-dom/client";
 import { motion } from "framer-motion";
-import "./index.css";
-
-const logoUrl = "/images/jtrt-logo-polished.png";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 function Icon({ name, className = "h-6 w-6" }) {
   const common = {
@@ -17,14 +15,17 @@ function Icon({ name, className = "h-6 w-6" }) {
     "aria-hidden": "true",
   };
 
-  const icons = {
-    shield: (
+  if (name === "shield") {
+    return (
       <svg {...common}>
         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
         <path d="m9 12 2 2 4-5" />
       </svg>
-    ),
-    network: (
+    );
+  }
+
+  if (name === "network") {
+    return (
       <svg {...common}>
         <rect x="3" y="3" width="6" height="6" rx="1" />
         <rect x="15" y="3" width="6" height="6" rx="1" />
@@ -32,120 +33,136 @@ function Icon({ name, className = "h-6 w-6" }) {
         <path d="M6 9v3h6v3" />
         <path d="M18 9v3h-6" />
       </svg>
-    ),
-    server: (
+    );
+  }
+
+  if (name === "server") {
+    return (
       <svg {...common}>
         <rect x="4" y="4" width="16" height="6" rx="2" />
         <rect x="4" y="14" width="16" height="6" rx="2" />
         <path d="M8 7h.01" />
         <path d="M8 17h.01" />
       </svg>
-    ),
-    clipboard: (
+    );
+  }
+
+  if (name === "clipboard") {
+    return (
       <svg {...common}>
         <path d="M9 4h6a2 2 0 0 1 2 2v1H7V6a2 2 0 0 1 2-2z" />
         <path d="M7 6H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-2" />
         <path d="m9 14 2 2 4-5" />
       </svg>
-    ),
-    headphones: (
+    );
+  }
+
+  if (name === "headphones") {
+    return (
       <svg {...common}>
         <path d="M4 13a8 8 0 0 1 16 0" />
         <path d="M4 13v4a2 2 0 0 0 2 2h2v-8H6a2 2 0 0 0-2 2z" />
         <path d="M20 13v4a2 2 0 0 1-2 2h-2v-8h2a2 2 0 0 1 2 2z" />
       </svg>
-    ),
-    arrow: (
+    );
+  }
+
+  if (name === "arrow") {
+    return (
       <svg {...common}>
         <path d="M5 12h14" />
         <path d="m12 5 7 7-7 7" />
       </svg>
-    ),
-    check: (
+    );
+  }
+
+  if (name === "check") {
+    return (
       <svg {...common}>
         <circle cx="12" cy="12" r="9" />
         <path d="m8.5 12.5 2.3 2.3 4.7-5.3" />
       </svg>
-    ),
-    menu: (
+    );
+  }
+
+  if (name === "menu") {
+    return (
       <svg {...common}>
         <path d="M4 7h16" />
         <path d="M4 12h16" />
         <path d="M4 17h16" />
       </svg>
-    ),
-    x: (
+    );
+  }
+
+  if (name === "x") {
+    return (
       <svg {...common}>
         <path d="M18 6 6 18" />
         <path d="m6 6 12 12" />
       </svg>
-    ),
-    mail: (
+    );
+  }
+
+  if (name === "mail") {
+    return (
       <svg {...common}>
         <rect x="3" y="5" width="18" height="14" rx="2" />
         <path d="m3 7 9 6 9-6" />
       </svg>
-    ),
-    phone: (
+    );
+  }
+
+  if (name === "phone") {
+    return (
       <svg {...common}>
         <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.4 2.1L8 9.7a16 16 0 0 0 6.3 6.3l1.3-1.3a2 2 0 0 1 2.1-.4c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2z" />
       </svg>
-    ),
-    map: (
+    );
+  }
+
+  if (name === "map") {
+    return (
       <svg {...common}>
         <path d="M12 21s7-5.3 7-11a7 7 0 1 0-14 0c0 5.7 7 11 7 11z" />
         <circle cx="12" cy="10" r="2.5" />
       </svg>
-    ),
-  };
+    );
+  }
 
-  return icons[name] || null;
-}
-
-function Button({ children, className = "", variant = "solid", type = "button", ...props }) {
-  const base = "inline-flex items-center justify-center rounded-full px-7 py-3 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2";
-  const variants = {
-    solid: "bg-slate-950 text-white hover:bg-slate-800",
-    light: "bg-white text-slate-950 hover:bg-slate-100",
-    outline: "border border-white/30 bg-transparent text-white hover:bg-white/10",
-  };
-
-  return (
-    <button type={type} className={`${base} ${variants[variant]} ${className}`} {...props}>
-      {children}
-    </button>
-  );
-}
-
-function Card({ children, className = "" }) {
-  return <div className={`rounded-3xl border shadow-sm ${className}`}>{children}</div>;
+  return null;
 }
 
 const services = [
   {
     icon: "shield",
     title: "Cybersecurity & Risk",
-    description: "Practical assessments, vulnerability reviews, policy guidance, and remediation roadmaps that help organizations understand and reduce risk without unnecessary complexity.",
+    description:
+      "Practical assessments, vulnerability reviews, policy guidance, and remediation roadmaps that help organizations understand and reduce risk without unnecessary complexity.",
   },
   {
     icon: "network",
     title: "Network Infrastructure",
-    description: "Design, implementation, and modernization of wired, wireless, firewall, remote access, and campus connectivity environments.",
+    description:
+      "Design, implementation, and modernization of wired, wireless, firewall, remote access, and campus connectivity environments.",
   },
   {
     icon: "server",
     title: "Datacenter & Systems",
-    description: "Server, storage, virtualization, backup, and hybrid cloud planning for organizations that need resilient infrastructure and clear technical execution.",
+    description:
+      "Server, storage, virtualization, backup, and hybrid cloud planning for organizations that need resilient infrastructure and clear technical execution.",
   },
   {
     icon: "clipboard",
     title: "Project Delivery",
-    description: "Experienced technical project leadership that turns complex IT goals into realistic plans, clear milestones, and completed outcomes.",
+    description:
+      "Experienced technical project leadership that turns complex IT goals into realistic plans, clear milestones, and completed outcomes.",
   },
   {
     icon: "headphones",
     title: "Managed IT Support",
-    description: "Flexible support options for organizations that need reliable IT operations, responsive escalation, and experienced guidance without building a full internal team.",
+    description:
+      "Flexible support options for organizations that need reliable IT operations, responsive escalation, and experienced guidance without building a full internal team.",
   },
 ];
 
@@ -157,9 +174,21 @@ const differentiators = [
 ];
 
 const process = [
-  { step: "01", title: "Assess", text: "We review the current environment, business goals, constraints, risks, and operational pain points." },
-  { step: "02", title: "Prioritize", text: "We separate urgent needs from nice-to-haves and build a practical roadmap around impact and effort." },
-  { step: "03", title: "Execute", text: "We help design, implement, stabilize, document, and support the solution through completion." },
+  {
+    step: "01",
+    title: "Assess",
+    text: "We review the current environment, business goals, constraints, risks, and operational pain points.",
+  },
+  {
+    step: "02",
+    title: "Prioritize",
+    text: "We separate urgent needs from nice-to-haves and build a practical roadmap around impact and effort.",
+  },
+  {
+    step: "03",
+    title: "Execute",
+    text: "We help design, implement, stabilize, document, and support the solution through completion.",
+  },
 ];
 
 const focusAreas = [
@@ -176,16 +205,19 @@ const navItems = [
   { href: "#contact", label: "Contact" },
 ];
 
+const logoUrl = "/images/jtrt-logo-polished.png";
+
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
         <a href="#top" className="flex items-center gap-3" onClick={closeMenu}>
-          <div className="flex h-12 w-28 items-center justify-center overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-slate-200">
-            <img src={logoUrl} alt="JTRT Solutions" className="h-10 w-auto object-contain" />
+          <div className="flex h-14 w-auto items-center justify-center overflow-hidden">
+            <img src={logoUrl} alt="JTRT Solutions" className="h-16 w-auto object-contain" />
           </div>
           <div className="hidden sm:block">
             <div className="text-lg font-bold tracking-tight text-slate-950">JTRT Solutions</div>
@@ -194,13 +226,15 @@ function Header() {
         </a>
         <nav className="hidden items-center gap-8 text-sm font-medium text-slate-700 md:flex" aria-label="Primary navigation">
           {navItems.map((item) => (
-            <a key={item.href} href={item.href} className="hover:text-slate-950">{item.label}</a>
+            <a key={item.href} href={item.href} className="hover:text-slate-950">
+              {item.label}
+            </a>
           ))}
         </nav>
         <div className="hidden md:block">
-          <a href="#contact" className="inline-flex items-center justify-center rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white hover:bg-slate-800">
-            Schedule a Consultation
-          </a>
+          <Button asChild className="rounded-full bg-slate-950 px-5 hover:bg-slate-800">
+            <a href="#contact">Schedule a Consultation</a>
+          </Button>
         </div>
         <button
           type="button"
@@ -221,9 +255,9 @@ function Header() {
                 {item.label}
               </a>
             ))}
-            <a href="#contact" onClick={closeMenu} className="mt-2 inline-flex items-center justify-center rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white hover:bg-slate-800">
-              Schedule a Consultation
-            </a>
+            <Button asChild className="mt-2 rounded-full bg-slate-950 hover:bg-slate-800">
+              <a href="#contact" onClick={closeMenu}>Schedule a Consultation</a>
+            </Button>
           </div>
         </nav>
       )}
@@ -241,8 +275,8 @@ function Hero() {
       <div className="relative mx-auto grid max-w-7xl gap-12 px-5 py-24 lg:grid-cols-[1.15fr_0.85fr] lg:px-8 lg:py-32">
         <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
           <div className="mb-6 inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-medium text-slate-100">
-            <span className="flex h-7 w-16 items-center justify-center overflow-hidden rounded-md bg-white/95 px-1">
-              <img src={logoUrl} alt="" className="h-6 w-auto object-contain" />
+            <span className="flex h-8 w-auto items-center justify-center overflow-hidden rounded-md bg-white/95 px-2">
+              <img src={logoUrl} alt="" className="h-8 w-auto object-contain" />
             </span>
             Infrastructure. Security. Support. Done right.
           </div>
@@ -253,21 +287,23 @@ function Hero() {
             JTRT Solutions helps organizations design, secure, modernize, and support their technology environments with clear guidance, realistic planning, and hands-on execution.
           </p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <a href="#contact" className="inline-flex items-center justify-center rounded-full bg-white px-7 py-3 text-sm font-semibold text-slate-950 transition hover:bg-slate-100">
-              Start a Conversation <Icon name="arrow" className="ml-2 h-4 w-4" />
-            </a>
-            <a href="#services" className="inline-flex items-center justify-center rounded-full border border-white/30 bg-transparent px-7 py-3 text-sm font-semibold text-white transition hover:bg-white/10">
-              Explore Services
-            </a>
+            <Button asChild size="lg" className="rounded-full bg-white px-7 text-slate-950 hover:bg-slate-100">
+              <a href="#contact">
+                Start a Conversation <Icon name="arrow" className="ml-2 h-4 w-4" />
+              </a>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="rounded-full border-white/30 bg-transparent px-7 text-white hover:bg-white/10 hover:text-white">
+              <a href="#services">Explore Services</a>
+            </Button>
           </div>
         </motion.div>
         <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.55, delay: 0.1 }}>
-          <Card className="border-white/10 bg-white/10 shadow-2xl backdrop-blur-lg">
-            <div className="p-7">
+          <Card className="rounded-3xl border-white/10 bg-white/10 shadow-2xl backdrop-blur-lg">
+            <CardContent className="p-7">
               <div className="rounded-2xl bg-white p-6 text-slate-950 shadow-xl">
                 <div className="mb-6 flex items-center justify-between gap-4">
                   <div className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">Focus Areas</div>
-                  <img src={logoUrl} alt="JTRT Solutions" className="h-11 w-auto object-contain" />
+                  <img src={logoUrl} alt="JTRT Solutions" className="h-12 w-auto object-contain" />
                 </div>
                 <div className="space-y-4">
                   {focusAreas.map((item) => (
@@ -278,7 +314,7 @@ function Hero() {
                   ))}
                 </div>
               </div>
-            </div>
+            </CardContent>
           </Card>
         </motion.div>
       </div>
@@ -298,17 +334,19 @@ function Services() {
           </p>
         </div>
         <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {services.map((service) => (
-            <Card key={service.title} className="group border-slate-200 bg-white transition hover:-translate-y-1 hover:shadow-lg">
-              <div className="p-7">
-                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 text-blue-700 group-hover:bg-blue-700 group-hover:text-white">
-                  <Icon name={service.icon} className="h-6 w-6" />
-                </div>
-                <h3 className="text-xl font-bold text-slate-950">{service.title}</h3>
-                <p className="mt-3 leading-7 text-slate-600">{service.description}</p>
-              </div>
-            </Card>
-          ))}
+          {services.map((service) => {
+            return (
+              <Card key={service.title} className="group rounded-3xl border-slate-200 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+                <CardContent className="p-7">
+                  <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 text-blue-700 group-hover:bg-blue-700 group-hover:text-white">
+                    <Icon name={service.icon} className="h-6 w-6" />
+                  </div>
+                  <h3 className="text-xl font-bold text-slate-950">{service.title}</h3>
+                  <p className="mt-3 leading-7 text-slate-600">{service.description}</p>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -337,14 +375,14 @@ function Approach() {
           </div>
           <div className="grid gap-5">
             {process.map((item) => (
-              <Card key={item.step} className="border-slate-200 bg-white">
-                <div className="grid gap-5 p-7 sm:grid-cols-[80px_1fr]">
+              <Card key={item.step} className="rounded-3xl border-slate-200 shadow-sm">
+                <CardContent className="grid gap-5 p-7 sm:grid-cols-[80px_1fr]">
                   <div className="text-4xl font-bold text-blue-700">{item.step}</div>
                   <div>
                     <h3 className="text-xl font-bold text-slate-950">{item.title}</h3>
                     <p className="mt-2 leading-7 text-slate-600">{item.text}</p>
                   </div>
-                </div>
+                </CardContent>
               </Card>
             ))}
           </div>
@@ -383,11 +421,6 @@ function About() {
 function Contact() {
   const handleSubmit = (event) => {
     event.preventDefault();
-    const form = event.currentTarget;
-    const formData = new FormData(form);
-    const subject = encodeURIComponent("Website inquiry from " + (formData.get("name") || "JTRT website"));
-    const body = encodeURIComponent(`Name: ${formData.get("name") || ""}\nEmail: ${formData.get("email") || ""}\n\n${formData.get("message") || ""}`);
-    window.location.href = `mailto:info@jtrtsolutions.com?subject=${subject}&body=${body}`;
   };
 
   return (
@@ -411,23 +444,25 @@ function Contact() {
             </div>
           </div>
         </div>
-        <Card className="border-white/10 bg-white text-slate-950 shadow-2xl">
-          <form className="grid gap-4 p-7" onSubmit={handleSubmit}>
-            <div className="grid gap-2">
-              <label htmlFor="name" className="text-sm font-semibold text-slate-700">Name</label>
-              <input id="name" name="name" type="text" className="rounded-xl border border-slate-200 px-4 py-3 outline-none focus:border-blue-600" placeholder="Your name" autoComplete="name" />
-            </div>
-            <div className="grid gap-2">
-              <label htmlFor="email" className="text-sm font-semibold text-slate-700">Email</label>
-              <input id="email" name="email" type="email" className="rounded-xl border border-slate-200 px-4 py-3 outline-none focus:border-blue-600" placeholder="you@example.com" autoComplete="email" />
-            </div>
-            <div className="grid gap-2">
-              <label htmlFor="message" className="text-sm font-semibold text-slate-700">How can we help?</label>
-              <textarea id="message" name="message" className="min-h-32 rounded-xl border border-slate-200 px-4 py-3 outline-none focus:border-blue-600" placeholder="Tell us about your project, support need, or assessment request." />
-            </div>
-            <Button type="submit" className="mt-2 py-4 text-base">Send Message</Button>
-            <p className="text-sm leading-6 text-slate-500">This form currently opens an email draft. It can be replaced with a Cloudflare Pages Function later.</p>
-          </form>
+        <Card className="rounded-3xl border-white/10 bg-white text-slate-950 shadow-2xl">
+          <CardContent className="p-7">
+            <form className="grid gap-4" onSubmit={handleSubmit}>
+              <div className="grid gap-2">
+                <label htmlFor="name" className="text-sm font-semibold text-slate-700">Name</label>
+                <input id="name" name="name" type="text" className="rounded-xl border border-slate-200 px-4 py-3 outline-none focus:border-blue-600" placeholder="Your name" autoComplete="name" />
+              </div>
+              <div className="grid gap-2">
+                <label htmlFor="email" className="text-sm font-semibold text-slate-700">Email</label>
+                <input id="email" name="email" type="email" className="rounded-xl border border-slate-200 px-4 py-3 outline-none focus:border-blue-600" placeholder="you@example.com" autoComplete="email" />
+              </div>
+              <div className="grid gap-2">
+                <label htmlFor="message" className="text-sm font-semibold text-slate-700">How can we help?</label>
+                <textarea id="message" name="message" className="min-h-32 rounded-xl border border-slate-200 px-4 py-3 outline-none focus:border-blue-600" placeholder="Tell us about your project, support need, or assessment request." />
+              </div>
+              <Button type="submit" className="mt-2 rounded-full bg-slate-950 py-6 text-base hover:bg-slate-800">Send Message</Button>
+              <p className="text-sm leading-6 text-slate-500">This is a demo form. It can be connected to email, CRM, or a simple form service during implementation.</p>
+            </form>
+          </CardContent>
         </Card>
       </div>
     </section>
@@ -449,7 +484,7 @@ function Footer() {
   );
 }
 
-function App() {
+export default function JTRTDemoSite() {
   return (
     <main className="min-h-screen bg-white font-sans text-slate-950">
       <Header />
@@ -462,5 +497,3 @@ function App() {
     </main>
   );
 }
-
-createRoot(document.getElementById("root")).render(<App />);
