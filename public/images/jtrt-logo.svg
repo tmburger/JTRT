@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 130" role="img" aria-labelledby="title">
+  <title>JTRT Solutions</title>
+  <rect width="420" height="130" rx="18" fill="#ffffff"/>
+  <text x="28" y="82" font-family="Arial, Helvetica, sans-serif" font-size="66" font-weight="700" fill="#1e5aa8">JTRT</text>
+  <text x="210" y="78" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#1e5aa8">Solutions</text>
+  <path d="M30 98h355" stroke="#1e5aa8" stroke-width="6" stroke-linecap="round"/>
+</svg>
