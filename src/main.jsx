@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import { motion } from "framer-motion";
 import "./index.css";
 
-const logoUrl = "/images/jtrt-logo.svg";
+const logoUrl = "/images/jtrt-logo-polished.png";
 
 function Icon({ name, className = "h-6 w-6" }) {
   const common = {
