@@ -464,7 +464,7 @@ function Contact() {
               <textarea id="message" name="message" className="min-h-32 rounded-xl border border-slate-200 px-4 py-3 outline-none focus:border-blue-600" placeholder="Tell us about your project, support need, or assessment request." />
             </div>
             <Button type="submit" className="mt-2 py-4 text-base">Send Message</Button>
-            <p className="text-sm leading-6 text-slate-500">This form currently opens an email draft. It can be replaced with a Cloudflare Pages Function later.</p>
+            <p className="text-sm leading-6 text-slate-500">We look forward to hearing from you.</p>
           </form>
         </Card>
       </div>
