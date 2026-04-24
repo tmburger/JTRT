@@ -267,9 +267,9 @@ function Hero() {
 
       <div className="relative mx-auto grid max-w-7xl gap-12 px-5 py-24 lg:grid-cols-[1.15fr_0.85fr] lg:px-8 lg:py-32">
         <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
-          <div className="mb-6 inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-medium text-slate-100">
-            <span className="flex h-8 w-auto items-center justify-center overflow-hidden rounded-md bg-white/95 px-2">
-              <img src={logoUrl} alt="" className="h-8 w-auto object-contain" />
+          <div className="mb-6 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-5 py-2 text-sm font-medium text-slate-200 backdrop-blur-sm">
+            <span className="flex h-7 w-auto items-center justify-center overflow-hidden rounded-md bg-white/90 px-2">
+              <img src={logoUrl} alt="" className="h-7 w-auto object-contain opacity-90" />
             </span>
             Infrastructure. Security. Support. Done right.
           </div>
